@@ -90,6 +90,13 @@
   isWin = function(x) {
     if (x === 2048) {
       console.log("You won");
+      $('.overlay').css({
+        "display": "block"
+      });
+      $('.msg').css({
+        "display": "block"
+      });
+      $('.msg > h2').html("You Won!");
       return true;
     }
     return false;
@@ -141,6 +148,13 @@
           }
         }
       }
+      $('.overlay').css({
+        "display": "block"
+      });
+      $('.msg').css({
+        "display": "block"
+      });
+      $('.msg > h2').html("You Lost!");
       return true;
     }
     return false;

@@ -11,6 +11,9 @@ $ ->
     console.log "Score: "+ score
   initiate()
 
+#  $('.overlay').css({"display":"block"});
+#  $('.msg').css({"display":"block"});
+
   $('body').keydown (e)->
     e.preventDefault()
 
@@ -69,6 +72,9 @@ getRandomCell = ->
 isWin = (x) ->
   if x == 2048
     console.log "You won"
+    $('.overlay').css({"display":"block"});
+    $('.msg').css({"display":"block"});
+    $('.msg > h2').html("You Won!")
     return true
   false
 
@@ -104,6 +110,9 @@ isLost = ->
       for j in [0..3]
         if board[i][j]==board[i+1][j]
             return false
+    $('.overlay').css({"display":"block"});
+    $('.msg').css({"display":"block"});
+    $('.msg > h2').html("You Lost!")
     return true
 
   return false
