@@ -1,0 +1,51 @@
+body {
+  background: rgb(3,3,3);
+  text-align: center;
+  font-family: "avenir";
+}
+
+h1 {
+  color: rgb(225,225,225);
+  font-size: 50px
+  font-family: "avenir";
+  padding-top: 10px;
+  text-decoration: bold;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  letter-spacing: 10px;
+}
+
+h2 {
+  color: rgb(255,255,255);
+
+
+}
+.board {
+  background-color: rgb(225,225,225);
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.cell {
+  background-color: rgba(240,240,240,0.75);
+  width: 90px;
+  height: 90px;
+  float: left;
+  border-radius: 10px;
+  margin: 3px;
+  border: 2px solid rgba(0,0,0,0.1);
+}
+
+p {
+  font-size: 28px;
+  padding-top: 5px;
+  color: green;
+  font-family: 'Inconsolate';
+}
