@@ -127,8 +127,8 @@
     $('.msg').css({
       "display": "block"
     });
-    if (status === 1) {
-      $('.msg > h2').html("You Won!");
+    if (win === 1) {
+      $('.msg > h2').html("You Won! Score: " + score);
       return $('.msg > button').html("Continue");
     } else {
       $('.msg > h2').html("You Lost!");
@@ -139,7 +139,7 @@
   isWin = function(x) {
     if (x === winValue && wonGame === 0) {
       wonGame = 1;
-      displayBox(wonGame);
+      displayBox(1);
       return true;
     }
     return false;
@@ -176,7 +176,7 @@
 
   isLost = function() {
     if ((isValidMove('up') + isValidMove('down') + isValidMove('right') + isValidMove('left')) === 0) {
-      displayBox(wonGame);
+      displayBox(0);
       return true;
     }
     return false;
@@ -201,7 +201,7 @@
 
   randomValue = function() {
     var val, values;
-    values = [2, 2, 2, 4];
+    values = [1024, 2, 2, 4];
     return val = values[randomIndex(values.length)];
   };
 

@@ -88,8 +88,8 @@ displayBox = (win) ->
   $('.overlay').css({"display":"block"})
   $('.msg').fadeIn()
   $('.msg').css({"display":"block"})
-  if status == 1
-    $('.msg > h2').html("You Won!")
+  if win == 1
+    $('.msg > h2').html("You Won! Score: #{score}")
     $('.msg > button').html("Continue")
   else
     $('.msg > h2').html("You Lost!")
@@ -98,7 +98,7 @@ displayBox = (win) ->
 isWin = (x) ->
   if x == winValue and wonGame == 0
     wonGame = 1
-    displayBox(wonGame)
+    displayBox(1)
     return true
   false
 
@@ -121,7 +121,7 @@ isValidMove = (direction) ->
 
 isLost = ->
   if (isValidMove('up') + isValidMove('down') + isValidMove('right') + isValidMove('left')) == 0
-    displayBox(wonGame)
+    displayBox(0)
     return true
   return false
 
@@ -141,7 +141,7 @@ randomIndex = (x) ->
   Math.floor(Math.random() * x)
 
 randomValue = ->
-      values = [2, 2, 2, 4]
+      values = [1024, 2, 2, 4]
       val = values[randomIndex(values.length)]
 
 #collapse
