@@ -1,7 +1,7 @@
 @board = [0..3].map (x) -> [0..3].map (y) -> 0
-@oldboard = [0..3].map (x) -> [0..3].map (y) -> 0
 score = 0
-
+winValue = 2048
+wonGame = 0
 
 $ ->
 
@@ -17,14 +17,21 @@ $ ->
     $('.msg').fadeOut(1000)
     $('.overlay').css({"display":"none"});
     $('.msg').css({"display":"none"});
-    if $('action').html = "restart"
+
+    if $('.action').html() == "Restart"
       newGame()
+    else
+      wonGame = 1
 
 
   $('body').keydown (e)->
     e.preventDefault()
-
     key = e.which
+    keys = [37..40]
+
+    if $.inArray(key, keys) > -1
+      e.preventDefault()
+
     if isLost() == false
       switch key
         when 37
@@ -51,21 +58,9 @@ $ ->
             shift ('down')
             initiate()
 
-
-
-
-#    $('.cell').animate({
-#      marginLeft: "110px"
-#        1000
-
-#      })
-#  $('.cell').html('<h2>2</h2>')
-
-
-
 newGame = ->
-    for i in [0..3]
-      for j in [0..3]
+    for i in [0..(board.length-1)]
+      for j in [0..(board[i].length-1)]
         board[i][j]=0
     setScoreZero()
     generateTile()
@@ -73,13 +68,13 @@ newGame = ->
     ppArray(board)
     console.log "Score: "+ score
 
-
 ppArray = (array) ->
   for row in array
     console.log row
 
 setScoreZero = ->
   score = 0
+  wonGame = 0
   $('.scoreboard > h2').html("Score: 0")
 
 addScore = (x) ->
@@ -89,11 +84,11 @@ addScore = (x) ->
 getRandomCell = ->
   [randomIndex(4), randomIndex(4)]
 
-displayBox = (status) ->
+displayBox = (win) ->
   $('.overlay').css({"display":"block"})
   $('.msg').fadeIn()
   $('.msg').css({"display":"block"})
-  if status is 'win'
+  if status == 1
     $('.msg > h2').html("You Won!")
     $('.msg > button').html("Continue")
   else
@@ -101,9 +96,9 @@ displayBox = (status) ->
     $('.msg > button').html("Restart")
 
 isWin = (x) ->
-  if x == 2048
-    console.log "You won"
-    displayBox('win')
+  if x == winValue and wonGame == 0
+    wonGame = 1
+    displayBox(wonGame)
     return true
   false
 
@@ -122,26 +117,14 @@ isValidMove = (direction) ->
         return true
       if (temp[j-1]==0) and (temp[j]>0)
         return true
-
   return false
-
-
 
 isLost = ->
-  if boardFull() == true
-    for i in [0..3]
-      for j in [0..2]
-        if board[i][j]==board[i][j+1]
-            return false
-
-    for i in [0..2]
-      for j in [0..3]
-        if board[i][j]==board[i+1][j]
-            return false
-    displayBox('lost')
+  if (isValidMove('up') + isValidMove('down') + isValidMove('right') + isValidMove('left')) == 0
+    displayBox(wonGame)
     return true
-
   return false
+
 
 generateTile = ->
   unless boardFull()
@@ -152,7 +135,6 @@ generateTile = ->
     if board[x][y] == 0
       board[x][y]=val
     else
-
         generateTile()
 
 randomIndex = (x) ->
@@ -179,7 +161,6 @@ removeZeros = (array, orientation) -> # orientation 0 = left/up, 1 = right/down
 #merge
 shift = (direction) ->
   temp = []
-
   for i in [0..3]
     switch direction
       when 'up'
@@ -198,21 +179,7 @@ shift = (direction) ->
         temp = removeZeros(getColumn(i), 1).reverse() #down (40)
         temp = (merge (temp)).reverse()
         setColumn(temp,i)
-    #temp = merge (temp)
 
-    #for j in [0..2]
-    #  if temp[j] == temp[j+1]
-    #    temp[j] = parseInt(temp[j+1]) * 2
-    #    addScore(temp[j])
-    #    isWin(temp[j])
-    #    temp[j+1] = 0
-    #temp = removeZeros(temp, 0)
-
-    #switch direction
-    #  when 'up' then setColumn(temp,i)
-    #  when 'left' then setRow(temp,i)
-    #  when 'right' then setRow(temp.reverse(),i)
-    #  when 'down' then setColumn(temp.reverse(),i)
 
 merge = (temp) ->
   for j in [0..2]
@@ -241,14 +208,12 @@ getRow = (row) ->
   [ board[row][0], board[row][1], board[row][2], board[row][3] ]
 
 
-
 boardFull = ->
     #if board is full return true
     for n in [0..3]
       if 0 in board[n]
         return false
     true
-
 
 fillTable = ->
   for row in [0..3]
@@ -258,22 +223,11 @@ fillTable = ->
         j = col+1
         $("##{i}_#{j}").css( "background-color", getColor(board[row][col]) );
         if board[row][col] > 0
-          $("##{i}_#{j}").html("<p>#{board[row][col]}</p>")
+
+          $("##{i}_#{j}").html("<span><p>#{board[row][col]}</p></span>")
+          console.log "Length of text: "+$("##{i}_#{j}").width()
         else
           $("##{i}_#{j}").html('')
-#     $('.cell').animate {width: 150}, 2000
-#     $("##{i}_#{j}").animate({marginLeft:'+150px'}, 2000)
-#      $('.cell').animate({
-#          marginLeft: "110px"
-#          })
-
-
-
-copyOldBoard = ->
-  for row in [0..3]
-    for column in [0..3]
-      oldboard[row][column] = board[row][column]
-
 
 getColor = (value) ->
   switch value
@@ -288,4 +242,3 @@ getColor = (value) ->
     when 256 then 'rgb(0,160,0)'
     when 1024 then 'rgb(0,130,0)'
     else 'rgb(0,100,0)'
-

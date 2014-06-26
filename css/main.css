@@ -1,7 +1,7 @@
 body {
   background: rgb(3,3,3);
   text-align: center;
-  font-family: "avenir";
+  font-family: "Inconsolata";
 }
 
 .msg {
@@ -11,7 +11,7 @@ body {
   border-radius: 5px;
   box-shadow: 2px 2px 2px rgba(0,20,0,0.2);
   width: 340px;
-  height: 200px;
+  height: 150px;
   position:fixed;
   top:20%;
   left:50%;
@@ -32,18 +32,55 @@ body {
 }
 
 button {
-  background-color:rgb(255,255,255);
-  color:rgb(0,0,0);
+  background-color: #ffffff;
+  color: #000000;
   border-radius:5px;
   border-spacing:0px;
   padding: 5px 5px 5px 5px;
   text-decoration: none;
+  box-shadow: 0;
+  border:0;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-family: "Arial";
 }
+
+.functions {
+  width: 400px;
+
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.scoreboard {
+  width: 150px;
+  height: 50px;
+  background-color: #006600;
+  border-radius: 10px;
+  padding: 1px 1px 1px 1px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover {
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  background-color: #ffffff;
+  background-image: -webkit-linear-gradient(top, #ffffff, #dbdbdb);
+  background-image: -moz-linear-gradient(top, #ffffff, #dbdbdb);
+  background-image: -ms-linear-gradient(top, #ffffff, #dbdbdb);
+  background-image: -o-linear-gradient(top, #ffffff, #dbdbdb);
+  background-image: linear-gradient(to bottom, #ffffff, #dbdbdb);}
 
 h1 {
   color: rgb(225,225,225);
-  font-size: 50px
-  font-family: "avenir";
+  font-size: 30px;
+  font-family: "Inconsolata";
   padding-top: 10px;
   text-decoration: bold;
   text-shadow:
@@ -56,9 +93,9 @@ h1 {
 
 h2 {
   color: rgb(255,255,255);
-
-
+  font-size: 14pt;
 }
+
 .board {
   background-color: rgb(225,225,225);
   width: 400px;
@@ -83,5 +120,6 @@ p {
   font-size: 28px;
   padding-top: 5px;
   color: black;
-  font-family: 'Inconsolate';
+  font-weight: bold;
+  font-family: "Inconsolata";
 }
