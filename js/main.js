@@ -201,7 +201,7 @@
 
   randomValue = function() {
     var val, values;
-    values = [1024, 2, 2, 4];
+    values = [2, 2, 2, 4];
     return val = values[randomIndex(values.length)];
   };
 
