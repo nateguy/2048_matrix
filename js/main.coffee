@@ -141,7 +141,7 @@ randomIndex = (x) ->
   Math.floor(Math.random() * x)
 
 randomValue = ->
-      values = [1024, 2, 2, 4]
+      values = [2, 2, 2, 4]
       val = values[randomIndex(values.length)]
 
 #collapse
