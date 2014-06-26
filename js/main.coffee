@@ -4,15 +4,22 @@ score = 0
 
 
 $ ->
+
+  newGame()
+
   initiate = ->
     generateTile()
     fillTable()
     ppArray(board)
-    console.log "Score: "+ score
-  initiate()
+    console.log 'Game lost: '+ isLost()
 
-#  $('.overlay').css({"display":"block"});
-#  $('.msg').css({"display":"block"});
+  $('.action').click ->
+    $('.msg').fadeOut(1000)
+    $('.overlay').css({"display":"none"});
+    $('.msg').css({"display":"none"});
+    if $('action').html = "restart"
+      newGame()
+
 
   $('body').keydown (e)->
     e.preventDefault()
@@ -25,28 +32,25 @@ $ ->
             console.log 'Key left'
             shift ('left')
             initiate()
-            #generateTile()
-            #fillTable()
-            #ppArray(board)
-            console.log 'Game lost: '+ isLost()
+
         when 38
           if isValidMove('up') == true
             console.log 'Key up'
             shift ('up')
             initiate()
-            console.log 'Game lost: '+ isLost()
+
         when 39
           if isValidMove('right') == true
             console.log 'Key right'
             shift ('right')
             initiate()
-            console.log 'Game lost: '+ isLost()
+
         when 40
           if isValidMove('down') == true
             console.log 'Key down'
             shift ('down')
             initiate()
-            console.log 'Game lost: '+ isLost()
+
 
 
 
@@ -58,9 +62,25 @@ $ ->
 #  $('.cell').html('<h2>2</h2>')
 
 
+
+newGame = ->
+    for i in [0..3]
+      for j in [0..3]
+        board[i][j]=0
+    setScoreZero()
+    generateTile()
+    fillTable()
+    ppArray(board)
+    console.log "Score: "+ score
+
+
 ppArray = (array) ->
   for row in array
     console.log row
+
+setScoreZero = ->
+  score = 0
+  $('.scoreboard > h2').html("Score: 0")
 
 addScore = (x) ->
   score = score + x
@@ -69,12 +89,21 @@ addScore = (x) ->
 getRandomCell = ->
   [randomIndex(4), randomIndex(4)]
 
+displayBox = (status) ->
+  $('.overlay').css({"display":"block"})
+  $('.msg').fadeIn()
+  $('.msg').css({"display":"block"})
+  if status is 'win'
+    $('.msg > h2').html("You Won!")
+    $('.msg > button').html("Continue")
+  else
+    $('.msg > h2').html("You Lost!")
+    $('.msg > button').html("Restart")
+
 isWin = (x) ->
   if x == 2048
     console.log "You won"
-    $('.overlay').css({"display":"block"});
-    $('.msg').css({"display":"block"});
-    $('.msg > h2').html("You Won!")
+    displayBox('win')
     return true
   false
 
@@ -98,7 +127,6 @@ isValidMove = (direction) ->
 
 
 
-
 isLost = ->
   if boardFull() == true
     for i in [0..3]
@@ -110,9 +138,7 @@ isLost = ->
       for j in [0..3]
         if board[i][j]==board[i+1][j]
             return false
-    $('.overlay').css({"display":"block"});
-    $('.msg').css({"display":"block"});
-    $('.msg > h2').html("You Lost!")
+    displayBox('lost')
     return true
 
   return false
@@ -250,18 +276,16 @@ copyOldBoard = ->
 
 
 getColor = (value) ->
-  color = ''
   switch value
-    when 0 then color = 'rgb(255,255,255)'
-    when 2 then color = 'rgb(200,255,200)'
-    when 4 then color = 'rgb(150,255,150)'
-    when 8 then color = 'rgb(100,255,100)'
-    when 16 then color = 'rgb(50,255,50)'
-    when 32 then color = 'rgb(0,255,0)'
-    when 64 then color = 'rgb(0,220,0)'
-    when 128 then color = 'rgb(0,190,0)'
-    when 256 then color = 'rgb(0,160,0)'
-    when 1024 then color = 'rgb(0,130,0)'
-    else color = 'rgb(0,100,0)'
+    when 0 then 'rgb(255,255,255)'
+    when 2 then 'rgb(200,255,200)'
+    when 4 then 'rgb(150,255,150)'
+    when 8 then 'rgb(100,255,100)'
+    when 16 then 'rgb(50,255,50)'
+    when 32 then 'rgb(0,255,0)'
+    when 64 then 'rgb(0,220,0)'
+    when 128 then 'rgb(0,190,0)'
+    when 256 then 'rgb(0,160,0)'
+    when 1024 then 'rgb(0,130,0)'
+    else 'rgb(0,100,0)'
 
-  color
