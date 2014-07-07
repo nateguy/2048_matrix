@@ -1,51 +1,50 @@
+<!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="css/main.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
-</head>
+	<head>
+	  <link rel="stylesheet" href="css/main.css">
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	</head>
+	<body>
+		<div class="overlay">
+			<dialog class="msg">
+				<h2>text</h2>
+				<button class="action">Restart</button>
+			</dialog>
+		</div>
 
-<body>
+		<div id='top'>
+			<h1>2048</h1>
+		</div>
 
-<div class="overlay">
-<dialog class="msg">
+		<div class='scoreboard'>
+			<h2>Score: 0</h2>
+		</div>
 
-<h2>text</h2>
-<button class="action">Restart</button>
-</dialog>
-</div>
+		<div class='functions'>
+			<button class="action">Restart</button>
+		</div>
 
-<div id='top'>
-	<h1>2048</h1>
+		<div class='board'>
+			<div class='cell' id="1_1"><p></p></div>
+			<div class='cell' id="1_2"><p></p></div>
+			<div class='cell' id="1_3"><p></p></div>
+			<div class='cell' id="1_4"><p></p></div>
+			<div class='cell' id="2_1"><p></p></div>
+			<div class='cell' id="2_2"><p></p></div>
+			<div class='cell' id="2_3"><p></p></div>
+			<div class='cell' id="2_4"><p></p></div>
+			<div class='cell' id="3_1"><p></p></div>
+			<div class='cell' id="3_2"><p></p></div>
+			<div class='cell' id="3_3"><p></p></div>
+			<div class='cell' id="3_4"><p></p></div>
+			<div class='cell' id="4_1"><p></p></div>
+			<div class='cell' id="4_2"><p></p></div>
+			<div class='cell' id="4_3"><p></p></div>
+			<div class='cell' id="4_4"><p></p></div>
+		</div>
 
-</div>
+		<div id='footer'></div>
 
-<div class='scoreboard'>
-	<h2>Score: 0</h2>
-</div>
-<div class='functions'>
-<button class="action">Restart</button>
-</div>
-
-<div class='board'>
-	<div class='cell' id="1_1"><p></p></div>
-	<div class='cell' id="1_2"><p></p></div>
-	<div class='cell' id="1_3"><p></p></div>
-	<div class='cell' id="1_4"><p></p></div>
-	<div class='cell' id="2_1"><p></p></div>
-	<div class='cell' id="2_2"><p></p></div>
-	<div class='cell' id="2_3"><p></p></div>
-	<div class='cell' id="2_4"><p></p></div>
-	<div class='cell' id="3_1"><p></p></div>
-	<div class='cell' id="3_2"><p></p></div>
-	<div class='cell' id="3_3"><p></p></div>
-	<div class='cell' id="3_4"><p></p></div>
-	<div class='cell' id="4_1"><p></p></div>
-	<div class='cell' id="4_2"><p></p></div>
-	<div class='cell' id="4_3"><p></p></div>
-	<div class='cell' id="4_4"><p></p></div>
-</div>
-
-<div id='footer'></div>
-
-</body>
+	</body>
+</html>

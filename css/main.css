@@ -1,5 +1,5 @@
 body {
-  background: rgb(3,3,3);
+  background: rgb(3, 3, 3);
   text-align: center;
   font-family: "Inconsolata";
 }
@@ -7,9 +7,9 @@ body {
 .msg {
   display: none;
   opacity: 0.9;
-  background-color: rgb(0,120,0);
+  background-color: rgb(0, 120, 0);
   border-radius: 5px;
-  box-shadow: 2px 2px 2px rgba(0,20,0,0.2);
+  box-shadow: 2px 2px 2px rgba(0, 20, 0, 0.2);
   width: 340px;
   height: 150px;
   position:fixed;
@@ -28,7 +28,7 @@ body {
   right: 0;
   bottom: 0;
   z-index: 1;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 button {
@@ -47,7 +47,6 @@ button {
 
 .functions {
   width: 400px;
-
   text-align: left;
   margin-left: auto;
   margin-right: auto;
@@ -85,19 +84,19 @@ h1 {
   text-decoration: bold;
   text-shadow:
     -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
   letter-spacing: 10px;
 }
 
 h2 {
-  color: rgb(255,255,255);
+  color: rgb(255, 255, 255);
   font-size: 14pt;
 }
 
 .board {
-  background-color: rgb(225,225,225);
+  background-color: rgb(225, 225, 225);
   width: 400px;
   height: 400px;
   margin: 0 auto;
@@ -107,13 +106,13 @@ h2 {
 }
 
 .cell {
-  background-color: rgba(240,240,240,0.75);
+  background-color: rgba(240, 240, 240, 0.75);
   width: 90px;
   height: 90px;
   float: left;
   border-radius: 10px;
   margin: 3px;
-  border: 2px solid rgba(0,0,0,0.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 p {

@@ -1,4 +1,8 @@
-@board = [0..3].map (x) -> [0..3].map (y) -> 0
+buildBoard = ->
+  [0..3].map (x) -> [0..3].map (y) -> 0
+
+# this.board == @board
+@board = buildBoard()
 score = 0
 winValue = 2048
 wonGame = 0
@@ -32,54 +36,42 @@ $ ->
     if $.inArray(key, keys) > -1
       e.preventDefault()
 
+    move = (direction) ->
+      if isValidMove(direction)
+        console.log "Key #{direction}"
+        shift(direction)
+        initiate()
+
     if isLost() == false
       switch key
-        when 37
-          if isValidMove('left') == true
-            console.log 'Key left'
-            shift ('left')
-            initiate()
-
-        when 38
-          if isValidMove('up') == true
-            console.log 'Key up'
-            shift ('up')
-            initiate()
-
-        when 39
-          if isValidMove('right') == true
-            console.log 'Key right'
-            shift ('right')
-            initiate()
-
-        when 40
-          if isValidMove('down') == true
-            console.log 'Key down'
-            shift ('down')
-            initiate()
+        when 37 then move('left')
+        when 38 then move('up')
+        when 39 then move('right')
+        when 40 then move('down')
 
 newGame = ->
-    for i in [0..(board.length-1)]
-      for j in [0..(board[i].length-1)]
-        board[i][j]=0
-    setScoreZero()
-    generateTile()
-    fillTable()
-    ppArray(board)
-    console.log "Score: "+ score
+  board = buildBoard()
+  setScoreZero()
+  generateTile()
+  fillTable()
+  ppArray(board)
+  console.log "Score: "+ score
 
 ppArray = (array) ->
   for row in array
     console.log row
 
+displayScore = (score) ->
+  $('.scoreboard > h2').html("Score: #{score}")
+
 setScoreZero = ->
   score = 0
   wonGame = 0
-  $('.scoreboard > h2').html("Score: 0")
+  displayScore(score)
 
 addScore = (x) ->
   score = score + x
-  $('.scoreboard > h2').html("Score: #{score}")
+  displayScore(score)
 
 getRandomCell = ->
   [randomIndex(4), randomIndex(4)]
@@ -88,7 +80,7 @@ displayBox = (win) ->
   $('.overlay').css({"display":"block"})
   $('.msg').fadeIn()
   $('.msg').css({"display":"block"})
-  if win == 1
+  if win
     $('.msg > h2').html("You Won! Score: #{score}")
     $('.msg > button').html("Continue")
   else
@@ -96,15 +88,22 @@ displayBox = (win) ->
     $('.msg > button').html("Restart")
 
 isWin = (x) ->
-  if x == winValue and wonGame == 0
+  if x == winValue && wonGame == 0
     wonGame = 1
-    displayBox(1)
+    displayBox(true)
     return true
   false
 
+isLost = ->
+  if (isValidMove('up') + isValidMove('down') + isValidMove('right') + isValidMove('left')) == 0
+    displayBox(0)
+    return true
+  return false
+
 isValidMove = (direction) ->
-  temp = [
-  ]
+
+  temp = []
+
   for i in [0..3]
     switch direction
       when 'up' then temp = getColumn(i)
@@ -119,13 +118,6 @@ isValidMove = (direction) ->
         return true
   return false
 
-isLost = ->
-  if (isValidMove('up') + isValidMove('down') + isValidMove('right') + isValidMove('left')) == 0
-    displayBox(0)
-    return true
-  return false
-
-
 generateTile = ->
   unless boardFull()
     val = randomValue()
@@ -133,29 +125,30 @@ generateTile = ->
     [x, y] = getRandomCell()
 
     if board[x][y] == 0
-      board[x][y]=val
+      board[x][y] = val
     else
-        generateTile()
+      generateTile()
 
 randomIndex = (x) ->
   Math.floor(Math.random() * x)
 
 randomValue = ->
-      values = [2, 2, 2, 4]
-      val = values[randomIndex(values.length)]
+  values = [2, 2, 2, 4]
+  val = values[randomIndex(values.length)]
 
 #collapse
 removeZeros = (array, orientation) -> # orientation 0 = left/up, 1 = right/down
-  newArray = [
-  ]
+
+  newArray = []
   array = array.filter (x) -> x != 0
 
-  if orientation == 1
-    array = array.reverse()
+  if orientation == 1 then array = array.reverse()
+
   for n in [0..3]
     newArray[n] = array[n] || 0
-  if orientation == 1
-    newArray = newArray.reverse()
+
+  if orientation == 1 then newArray = newArray.reverse()
+
   newArray
 
 #merge
@@ -180,7 +173,6 @@ shift = (direction) ->
         temp = (merge (temp)).reverse()
         setColumn(temp,i)
 
-
 merge = (temp) ->
   for j in [0..2]
       if temp[j] == temp[j+1]
@@ -200,13 +192,11 @@ setColumn = (column, colID) ->
   for rowID in [0..3]
     board[rowID][colID] = column[rowID]
 
-
 getColumn = (column) ->
   [ board[0][column], board[1][column], board[2][column], board[3][column] ]
 
 getRow = (row) ->
   [ board[row][0], board[row][1], board[row][2], board[row][3] ]
-
 
 boardFull = ->
     #if board is full return true
@@ -231,14 +221,14 @@ fillTable = ->
 
 getColor = (value) ->
   switch value
-    when 0 then 'rgb(255,255,255)'
-    when 2 then 'rgb(200,255,200)'
-    when 4 then 'rgb(150,255,150)'
-    when 8 then 'rgb(100,255,100)'
-    when 16 then 'rgb(50,255,50)'
-    when 32 then 'rgb(0,255,0)'
-    when 64 then 'rgb(0,220,0)'
-    when 128 then 'rgb(0,190,0)'
-    when 256 then 'rgb(0,160,0)'
-    when 1024 then 'rgb(0,130,0)'
-    else 'rgb(0,100,0)'
+    when 0 then 'rgb(255, 255, 255)'
+    when 2 then 'rgb(200, 255, 200)'
+    when 4 then 'rgb(150, 255, 150)'
+    when 8 then 'rgb(100, 255, 100)'
+    when 16 then 'rgb(50, 255, 50)'
+    when 32 then 'rgb(0, 255, 0)'
+    when 64 then 'rgb(0, 220, 0)'
+    when 128 then 'rgb(0, 190, 0)'
+    when 256 then 'rgb(0, 160, 0)'
+    when 1024 then 'rgb(0, 130, 0)'
+    else 'rgb(0, 100, 0)'
